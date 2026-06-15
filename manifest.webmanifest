@@ -1,0 +1,26 @@
+{
+  "name": "Hardwood 26 Basketball",
+  "short_name": "Hardwood 26",
+  "description": "A fast 3-on-3 basketball game with modern and all-time teams.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#090b10",
+  "theme_color": "#090b10",
+  "categories": ["games", "sports"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

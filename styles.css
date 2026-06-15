@@ -1,0 +1,486 @@
+:root {
+  --bg: #090b10;
+  --panel: #12151d;
+  --panel-2: #191d27;
+  --text: #f4f5f7;
+  --muted: #8d94a3;
+  --red: #ef233c;
+  --cyan: #40d9ff;
+  --gold: #f4c95d;
+  --home: #552583;
+  --home2: #fdb927;
+  --away: #007a33;
+  --away2: #ba9653;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+
+button, select { font: inherit; }
+button { color: inherit; }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 72% 35%, rgba(62, 86, 141, .16), transparent 30%),
+    linear-gradient(115deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: auto, 62px 62px;
+  pointer-events: none;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  opacity: .035;
+  z-index: 20;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  position: relative;
+}
+
+.screen.active { display: block; animation: screenIn .45s ease both; }
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.topbar {
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(24px, 5vw, 78px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  position: relative;
+  z-index: 5;
+}
+
+.brand {
+  font: 900 25px/1 "Barlow Condensed", sans-serif;
+  letter-spacing: -.5px;
+  transform: skew(-6deg);
+}
+
+.brand b {
+  color: var(--red);
+  margin-left: 5px;
+  font-size: 30px;
+}
+
+.nav-meta {
+  font-size: 10px;
+  color: #656c7a;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.hero {
+  min-height: calc(100vh - 132px);
+  display: grid;
+  grid-template-columns: .88fr 1.12fr;
+  align-items: center;
+  max-width: 1500px;
+  margin: auto;
+  padding: 30px clamp(24px, 6vw, 92px);
+  overflow: hidden;
+}
+
+.hero-copy { position: relative; z-index: 3; }
+
+.eyebrow {
+  font: 700 12px/1 "Barlow Condensed", sans-serif;
+  letter-spacing: 3.2px;
+  color: #adb4c2;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.eyebrow span { width: 27px; height: 3px; background: var(--red); }
+
+.hero h1 {
+  font: 900 clamp(74px, 9vw, 142px)/.77 "Barlow Condensed", sans-serif;
+  letter-spacing: -5px;
+  margin: 28px 0 27px;
+  text-transform: uppercase;
+}
+
+.hero h1 em {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255,255,255,.88);
+  font-style: italic;
+}
+
+.hero-copy > p {
+  max-width: 540px;
+  color: #aab0bc;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.menu-actions { display: flex; gap: 12px; margin-top: 34px; }
+
+.primary-btn, .secondary-btn, .start-game-btn {
+  border: 0;
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: .8px;
+  transition: transform .2s, filter .2s, background .2s;
+}
+
+.primary-btn:hover, .secondary-btn:hover, .start-game-btn:hover { transform: translateY(-2px); filter: brightness(1.12); }
+
+.primary-btn {
+  min-width: 210px;
+  min-height: 62px;
+  padding: 0 25px;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  box-shadow: 0 14px 35px rgba(239,35,60,.22);
+}
+
+.primary-btn small { display: block; font-size: 8px; opacity: .7; letter-spacing: 2px; margin-bottom: 3px; }
+.play-icon { font-size: 16px; }
+
+.secondary-btn {
+  min-height: 62px;
+  padding: 0 28px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.install-btn { border-color: rgba(82,255,145,.45); color: #82ffad; }
+
+.feature-row {
+  display: flex;
+  margin-top: 45px;
+  gap: 42px;
+}
+
+.feature-row div { display: flex; flex-direction: column; }
+.feature-row b { font: 800 27px/1 "Barlow Condensed"; }
+.feature-row span { font-size: 8px; color: #656c7a; letter-spacing: 1.7px; margin-top: 6px; font-weight: 700; }
+
+.hero-art {
+  height: min(750px, 75vh);
+  min-height: 530px;
+  position: relative;
+}
+
+.spotlight {
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  top: 4%;
+  left: 12%;
+  background: radial-gradient(circle, rgba(77,105,160,.25), rgba(27,32,44,.1) 48%, transparent 70%);
+}
+
+.backboard {
+  width: 280px;
+  height: 175px;
+  border: 12px solid rgba(204,213,229,.27);
+  border-bottom-width: 9px;
+  position: absolute;
+  right: 3%;
+  top: 11%;
+  transform: perspective(500px) rotateY(-10deg);
+  box-shadow: inset 0 0 35px rgba(126,166,232,.08), 0 0 50px rgba(93,133,201,.08);
+}
+
+.backboard::before {
+  content: "";
+  position: absolute;
+  right: -90px;
+  top: -12px;
+  height: 12px;
+  width: 90px;
+  background: #252a34;
+}
+
+.backboard-square { width: 95px; height: 66px; border: 5px solid rgba(255,255,255,.3); margin: 77px auto 0; }
+.rim { position: absolute; width: 92px; height: 16px; border: 8px solid #e14335; border-radius: 50%; bottom: -25px; left: 90px; z-index: 2; }
+.net { position: absolute; width: 66px; height: 70px; border-left: 2px solid rgba(255,255,255,.35); border-right: 2px solid rgba(255,255,255,.35); bottom: -90px; left: 103px; transform: perspective(100px) rotateX(-10deg); clip-path: polygon(0 0,100% 0,75% 100%,25% 100%); }
+
+.player-silhouette {
+  position: absolute;
+  width: 300px;
+  height: 530px;
+  left: 20%;
+  bottom: 2%;
+  filter: drop-shadow(30px 35px 35px rgba(0,0,0,.45));
+}
+
+.head { position: absolute; width: 77px; height: 88px; border-radius: 48% 48% 43% 43%; background: #171a22; left: 110px; top: 12px; }
+.torso { position: absolute; width: 155px; height: 220px; left: 72px; top: 88px; border-radius: 40% 40% 18% 18%; background: linear-gradient(155deg, #252a36, #101218 68%); clip-path: polygon(20% 0, 80% 0, 100% 30%, 82% 100%, 18% 100%, 0 30%); }
+.torso::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 36%, rgba(255,255,255,.1) 37%, transparent 40%); }
+.torso span { display: block; text-align: center; margin-top: 65px; color: rgba(255,255,255,.13); font: 900 70px "Barlow Condensed"; }
+.arm { position: absolute; width: 58px; height: 240px; background: #151821; border-radius: 30px; top: 105px; transform-origin: top; }
+.arm-left { left: 70px; transform: rotate(31deg); }
+.arm-right { right: 71px; transform: rotate(-48deg); height: 280px; }
+.leg { position: absolute; width: 75px; height: 260px; background: linear-gradient(#11141a, #090a0e); top: 278px; border-radius: 12px 12px 28px 28px; transform-origin: top; }
+.leg-left { left: 77px; transform: rotate(7deg); }
+.leg-right { right: 77px; transform: rotate(-10deg); }
+
+.hero-ball {
+  position: absolute;
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  right: -35px;
+  top: 290px;
+  background:
+    linear-gradient(90deg, transparent 47%, #51200d 48%, #51200d 52%, transparent 53%),
+    linear-gradient(25deg, transparent 47%, #51200d 48%, #51200d 52%, transparent 53%),
+    #b9511d;
+  box-shadow: inset -13px -15px 21px rgba(0,0,0,.55), inset 8px 7px 15px rgba(255,181,92,.19), 0 0 40px rgba(213,83,28,.15);
+}
+
+.court-glow { position: absolute; width: 700px; height: 160px; bottom: -30px; left: 0; border-radius: 50%; background: radial-gradient(ellipse, rgba(239,35,60,.14), transparent 67%); transform: perspective(250px) rotateX(60deg); }
+
+.menu-footer {
+  height: 44px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 0 clamp(24px, 5vw, 78px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 8px;
+  letter-spacing: 1.4px;
+  color: #555c69;
+}
+
+/* Setup */
+.setup-nav { justify-content: flex-start; gap: 23px; }
+.setup-nav h2 { font: 800 25px/1 "Barlow Condensed"; margin: 3px 0 0; letter-spacing: .5px; }
+.section-kicker { font-size: 8px; color: var(--red); font-weight: 800; letter-spacing: 2px; }
+.back-btn { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.1); background: transparent; cursor: pointer; font-size: 20px; }
+.step-indicator { margin-left: auto; display: flex; align-items: center; gap: 9px; }
+.step-indicator b { font: 800 30px "Barlow Condensed"; color: var(--red); }
+.step-indicator span { color: #667080; font-size: 8px; letter-spacing: 1.4px; font-weight: 800; }
+
+.setup-content { padding: 27px 30px 50px; text-align: center; }
+.matchup-label { color: #69717e; font: 700 9px "Inter"; letter-spacing: 2.3px; display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 23px; }
+.matchup-label span { width: 60px; height: 1px; background: #2b3039; }
+
+.matchup-builder { display: grid; grid-template-columns: minmax(300px, 430px) 180px minmax(300px, 430px); max-width: 1080px; margin: auto; align-items: center; }
+.selection-card { min-height: 515px; background: #12151b; border: 1px solid rgba(255,255,255,.09); position: relative; overflow: hidden; padding: 28px 36px; box-shadow: 0 30px 60px rgba(0,0,0,.2); }
+.selection-card::after { content: ""; position: absolute; inset: auto 0 0; height: 4px; background: var(--team-primary); }
+.team-color-wash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--team-primary) 30%, transparent), transparent 45%); opacity: .7; }
+.side-label { position: relative; z-index: 2; font-size: 8px; letter-spacing: 2.2px; font-weight: 800; color: #7a8290; }
+.team-badge, .mini-badge {
+  display: grid;
+  place-items: center;
+  background: var(--team-primary);
+  color: var(--team-secondary);
+  border: 4px solid var(--team-secondary);
+  border-radius: 50%;
+  font: 900 32px/1 "Barlow Condensed";
+  box-shadow: 0 0 0 7px color-mix(in srgb, var(--team-primary) 60%, transparent);
+}
+.team-badge { position: relative; z-index: 2; width: 115px; height: 115px; margin: 37px auto 24px; }
+.selection-card h3 { position: relative; z-index: 2; font: 900 38px/.9 "Barlow Condensed"; margin: 0 0 22px; letter-spacing: -.5px; }
+.lineup-type { position: relative; z-index: 2; display: inline-flex; padding: 3px; background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.08); }
+.era-btn { border: 0; background: transparent; padding: 9px 13px; font-size: 8px; font-weight: 800; letter-spacing: 1px; color: #686f7b; cursor: pointer; }
+.era-btn.active { background: var(--team-primary); color: var(--team-secondary); }
+.featured-player { position: relative; z-index: 2; margin: 22px auto 20px; display: flex; flex-direction: column; gap: 4px; }
+.featured-player small { font-size: 7px; letter-spacing: 1.4px; color: #68717e; }
+.featured-player b { font: 700 16px "Barlow Condensed"; }
+.choose-team-btn { position: relative; z-index: 2; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.055); padding: 12px 20px; font-size: 8px; font-weight: 800; letter-spacing: 1.3px; cursor: pointer; }
+
+.versus { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.versus > span { font-size: 7px; letter-spacing: 2px; color: #606875; font-weight: 800; }
+.versus > b { font: italic 900 64px "Barlow Condensed"; color: #e8e9eb; transform: skew(-5deg); }
+.game-setting { margin-top: 24px; display: flex; flex-direction: column; gap: 7px; }
+.game-setting label { font-size: 7px; color: #626b77; letter-spacing: 1.5px; font-weight: 800; }
+.game-setting select { color: white; background: #171b23; border: 1px solid #2c313b; padding: 9px; font-size: 9px; font-weight: 700; outline: none; }
+
+.start-game-btn { display: flex; justify-content: space-between; align-items: center; width: min(370px, 88vw); height: 58px; margin: 25px auto 0; padding: 0 25px; background: var(--red); box-shadow: 0 14px 30px rgba(239,35,60,.18); }
+.start-game-btn span { font: 800 14px "Barlow Condensed"; letter-spacing: 1.5px; }
+.start-game-btn b { font-size: 21px; }
+.setup-tip { color: #5c6470; font-size: 9px; margin: 13px 0 0; }
+
+/* Modals */
+.modal { position: fixed; inset: 0; z-index: 50; background: rgba(3,4,7,.85); backdrop-filter: blur(10px); display: none; place-items: center; padding: 24px; }
+.modal.open { display: grid; animation: modalIn .25s ease; }
+@keyframes modalIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-panel { background: #11141b; width: min(1020px, 96vw); max-height: 90vh; overflow: auto; border: 1px solid rgba(255,255,255,.11); box-shadow: 0 30px 90px #000; }
+.modal-header { height: 92px; padding: 0 28px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,.08); text-align: left; }
+.modal-header small { font-size: 8px; color: var(--red); letter-spacing: 2px; font-weight: 800; }
+.modal-header h2 { font: 800 30px/1 "Barlow Condensed"; margin: 5px 0 0; }
+.modal-close { border: 0; background: transparent; color: #89909c; font-size: 31px; cursor: pointer; }
+.conference-tabs { padding: 18px 24px 0; display: flex; gap: 7px; }
+.conference-btn { border: 1px solid #2c313b; background: transparent; color: #747c89; padding: 9px 15px; font-size: 8px; letter-spacing: 1.2px; font-weight: 800; cursor: pointer; }
+.conference-btn.active { background: white; color: #111; }
+.team-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; padding: 20px 24px 28px; }
+.team-option { border: 1px solid rgba(255,255,255,.08); background: #171a22; min-height: 96px; padding: 11px 8px; color: white; cursor: pointer; transition: transform .15s, border .15s, background .15s; }
+.team-option:hover { transform: translateY(-3px); border-color: var(--team-color); background: color-mix(in srgb, var(--team-color) 20%, #171a22); }
+.team-option b { display: grid; place-items: center; width: 42px; height: 42px; margin: auto; border-radius: 50%; color: var(--team-secondary); background: var(--team-color); border: 2px solid var(--team-secondary); font: 900 14px "Barlow Condensed"; }
+.team-option span { display: block; margin-top: 9px; font: 700 11px "Barlow Condensed"; }
+
+.guide-panel { width: min(890px, 96vw); }
+.guide-grid { padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.guide-card { padding: 22px; text-align: left; background: #171a22; border: 1px solid rgba(255,255,255,.06); }
+.guide-card kbd { font: 800 12px "Inter"; padding: 7px 10px; background: #252a35; border-bottom: 2px solid #3b424f; }
+.guide-card h3 { font: 800 21px "Barlow Condensed"; margin: 18px 0 6px; }
+.guide-card p { color: #89919e; font-size: 11px; line-height: 1.55; margin: 0; }
+.guide-close-btn { margin: 0 auto 28px; }
+
+.pause-panel { width: min(420px, 94vw); padding: 50px; text-align: center; background: #12151c; border: 1px solid rgba(255,255,255,.11); }
+.pause-panel small { color: var(--red); font-size: 8px; letter-spacing: 3px; font-weight: 800; }
+.pause-panel h2 { font: 900 58px "Barlow Condensed"; margin: 6px 0 30px; }
+.pause-panel button { width: 100%; margin-top: 10px; }
+.pause-panel .primary-btn { display: block; }
+.text-btn { background: transparent; border: 0; color: #717986; padding: 16px; font-size: 9px; font-weight: 800; cursor: pointer; letter-spacing: 1.4px; }
+.final-score { display: flex; align-items: center; justify-content: center; gap: 24px; font: 900 53px "Barlow Condensed"; margin: -13px 0 10px; }
+.final-score span { color: #555d69; }
+.end-panel p { font-size: 11px; color: #7c8491; margin-bottom: 25px; }
+
+/* Game */
+.game-screen { background: #080a0e; min-height: 100vh; overflow: hidden; }
+.scoreboard { height: 82px; background: #11141b; border-bottom: 1px solid #30343c; display: grid; grid-template-columns: 1fr 210px 1fr; position: relative; z-index: 10; box-shadow: 0 8px 30px rgba(0,0,0,.45); }
+.score-team { display: flex; align-items: center; gap: 16px; padding: 0 28px; }
+.away-score-team { justify-content: flex-end; text-align: right; }
+.score-team .mini-badge { width: 50px; height: 50px; font-size: 16px; border-width: 2px; box-shadow: none; flex: 0 0 auto; }
+.score-team small { display: block; color: #747d8a; font-size: 7px; letter-spacing: 1.2px; margin-bottom: 4px; }
+.score-team div > b { font: 800 19px "Barlow Condensed"; letter-spacing: .3px; }
+.foul-count { display: block; margin-top: 3px; color: #6f7886; font-size: 7px; font-weight: 800; letter-spacing: 1.2px; }
+.foul-count em { color: #f4c95d; font-style: normal; margin-left: 3px; }
+.foul-count.bonus::after { content: " • BONUS"; color: #ef6b6b; }
+.score-team strong { font: 900 44px "Barlow Condensed"; margin-left: auto; }
+.away-score-team strong { margin: 0 0 0 auto; }
+.clock-block { background: #080a0e; text-align: center; display: grid; place-items: center; align-content: center; clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%); }
+.clock-block > div { display: flex; gap: 13px; align-items: baseline; }
+.clock-block span { color: var(--red); font: 900 15px "Barlow Condensed"; }
+.clock-block b { font: 900 29px "Barlow Condensed"; }
+.clock-block small { font-size: 7px; letter-spacing: 1.2px; color: #707784; }
+.clock-block em { color: #f4c95d; font-style: normal; font-weight: 800; }
+.pause-btn { position: absolute; right: 8px; top: 7px; width: 28px; height: 28px; border: 1px solid #343943; background: #1b1f27; cursor: pointer; color: #78808d; font-size: 10px; }
+.sound-btn { position: absolute; right: 8px; bottom: 7px; border: 0; background: transparent; color: #727b89; font-size: 6px; font-weight: 800; letter-spacing: .8px; cursor: pointer; }
+
+.arena-shell { position: relative; height: calc(100vh - 82px); min-height: 560px; display: grid; place-items: center; background: radial-gradient(ellipse at center, #343a44, #090b0f 78%); overflow: hidden; }
+.arena-shell::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 40px, rgba(255,255,255,.018) 41px); pointer-events: none; }
+#gameCanvas { display: block; width: 100%; height: 100%; object-fit: cover; filter: drop-shadow(0 25px 25px rgba(0,0,0,.5)); }
+.game-message { position: absolute; top: 16%; left: 50%; transform: translate(-50%, -20px); opacity: 0; font: italic 900 55px "Barlow Condensed"; text-shadow: 0 5px 15px #000; pointer-events: none; white-space: nowrap; }
+.game-message.show { animation: messagePop 1.4s ease both; }
+@keyframes messagePop { 0% { opacity: 0; transform: translate(-50%, -10px) scale(.8); } 18%,70% { opacity: 1; transform: translate(-50%,0) scale(1); } 100% { opacity: 0; transform: translate(-50%,10px) scale(1.06); } }
+.shot-feedback { position: absolute; left: 50%; bottom: 92px; transform: translateX(-50%); font: 900 17px "Barlow Condensed"; letter-spacing: 1.5px; opacity: 0; }
+.shot-feedback.show { animation: feedback 1.2s ease; }
+@keyframes feedback { 0%,100% { opacity: 0; transform: translate(-50%,8px); } 15%,70% { opacity: 1; transform: translate(-50%,0); } }
+.free-throw-hud { display: none; position: absolute; top: 19%; left: 50%; transform: translateX(-50%); min-width: 210px; padding: 13px 24px; text-align: center; background: rgba(8,10,14,.9); border: 1px solid rgba(255,255,255,.16); border-top: 3px solid #f4c95d; box-shadow: 0 15px 45px rgba(0,0,0,.45); }
+.free-throw-hud.show { display: block; animation: modalIn .2s ease; }
+.free-throw-hud small { display: block; color: #f4c95d; font-size: 7px; letter-spacing: 2px; font-weight: 800; }
+.free-throw-hud b { display: block; margin: 4px 0; font: 900 26px "Barlow Condensed"; }
+.free-throw-hud span { color: #8c95a2; font-size: 8px; letter-spacing: 1px; }
+
+.control-hints { position: absolute; left: 50%; bottom: 13px; transform: translateX(-50%); display: flex; background: rgba(7,9,12,.84); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.08); }
+.control-hints > div { display: flex; align-items: center; gap: 7px; padding: 8px 11px; border-right: 1px solid rgba(255,255,255,.07); }
+.control-hints > div:last-child { border: 0; }
+.control-hints kbd { font-size: 7px; background: #2c313a; border-bottom: 2px solid #454c58; padding: 4px 6px; }
+.control-hints span { font-size: 6px; color: #6e7682; letter-spacing: 1px; font-weight: 800; }
+
+.touch-controls { display: none; position: absolute; inset: auto 0 18px; padding: 0 20px; justify-content: space-between; align-items: flex-end; pointer-events: none; }
+.touch-stick { width: 112px; height: 112px; border-radius: 50%; background: rgba(10,12,16,.56); border: 1px solid rgba(255,255,255,.18); pointer-events: auto; position: relative; touch-action: none; }
+#touchKnob { position: absolute; width: 48px; height: 48px; background: rgba(255,255,255,.25); border: 1px solid rgba(255,255,255,.35); border-radius: 50%; left: 31px; top: 31px; }
+.touch-actions { display: grid; grid-template-columns: 65px 65px; gap: 9px; pointer-events: auto; }
+.touch-actions button { width: 65px; height: 65px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2); background: rgba(15,18,24,.75); color: white; font-size: 8px; font-weight: 800; touch-action: none; }
+.touch-actions .shoot-touch { background: rgba(239,35,60,.8); }
+.touch-actions .dunk-touch { background: rgba(244,201,93,.82); color: #15110a; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-art { position: absolute; inset: 80px -130px 40px 40%; opacity: .42; }
+  .hero-copy { max-width: 620px; }
+  .matchup-builder { grid-template-columns: 1fr 90px 1fr; }
+  .selection-card { min-height: 470px; padding: 25px 18px; }
+  .team-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .topbar { height: 70px; padding: 0 18px; }
+  .nav-meta, .menu-footer span:last-child { display: none; }
+  .hero { min-height: calc(100vh - 110px); padding: 30px 21px; }
+  .hero h1 { font-size: clamp(70px, 24vw, 105px); letter-spacing: -3px; }
+  .menu-actions { flex-direction: column; align-items: stretch; }
+  .feature-row { gap: 30px; }
+  .menu-footer { padding: 0 20px; }
+  .setup-nav .step-indicator { display: none; }
+  .matchup-builder { grid-template-columns: 1fr; gap: 18px; }
+  .selection-card { min-height: 395px; }
+  .team-badge { width: 90px; height: 90px; margin: 22px auto 15px; }
+  .selection-card h3 { font-size: 31px; }
+  .versus { flex-direction: row; justify-content: center; }
+  .versus > b { font-size: 43px; }
+  .versus > span { display: none; }
+  .game-setting { margin: 0; }
+  .team-grid { grid-template-columns: repeat(3, 1fr); padding: 14px; }
+  .guide-grid { grid-template-columns: 1fr; }
+  .scoreboard { height: 70px; grid-template-columns: 1fr 120px 1fr; }
+  .score-team { padding: 0 7px; gap: 7px; }
+  .score-team .mini-badge { width: 37px; height: 37px; font-size: 12px; }
+  .score-team div { display: none; }
+  .score-team strong { font-size: 36px; }
+  .clock-block b { font-size: 23px; }
+  .arena-shell { height: calc(100vh - 70px); }
+  #gameCanvas { width: 100%; }
+  .control-hints { display: none; }
+  .touch-controls { display: flex; }
+}
+
+@media (pointer: coarse) {
+  .touch-controls {
+    display: flex;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    padding-left: max(18px, env(safe-area-inset-left));
+    padding-right: max(18px, env(safe-area-inset-right));
+  }
+  .control-hints { display: none; }
+  button { -webkit-tap-highlight-color: transparent; }
+}
+
+@media (pointer: coarse) and (orientation: portrait) {
+  .arena-shell::after {
+    content: "ROTATE YOUR PHONE FOR THE BEST GAME";
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    display: grid;
+    place-items: center;
+    padding: 30px;
+    text-align: center;
+    background: rgba(7,9,13,.94);
+    color: white;
+    font: 900 25px "Barlow Condensed";
+    letter-spacing: 2px;
+  }
+}
+
+@media (max-height: 720px) and (min-width: 701px) {
+  .hero { padding-top: 10px; padding-bottom: 10px; }
+  .feature-row { margin-top: 26px; }
+  .hero-copy > p { margin-bottom: 0; }
+  .menu-actions { margin-top: 22px; }
+  .selection-card { min-height: 430px; }
+  .team-badge { margin-top: 22px; width: 90px; height: 90px; }
+}
