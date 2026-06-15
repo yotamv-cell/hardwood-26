@@ -1,11 +1,13 @@
-const CACHE_NAME = "hardwood-26-v8";
+const CACHE_NAME = "hardwood-26-v9";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./mobile.css",
+  "./court-v2.css",
   "./game.js",
   "./enhancements.js",
+  "./gameplay-v2.js",
   "./manifest.webmanifest",
   "./icons/icon.svg",
   "./icons/icon-192.png",
@@ -36,8 +38,8 @@ self.addEventListener("fetch", event => {
           let html = await response.text();
           if (!html.includes("mobile.css")) {
             html = html
-              .replace("</head>", '  <link rel="stylesheet" href="mobile.css">\n</head>')
-              .replace("</body>", '  <script src="enhancements.js"></script>\n</body>');
+              .replace("</head>", '  <link rel="stylesheet" href="mobile.css">\n  <link rel="stylesheet" href="court-v2.css">\n</head>')
+              .replace("</body>", '  <script src="enhancements.js"></script>\n  <script src="gameplay-v2.js"></script>\n</body>');
           }
           const headers = new Headers(response.headers);
           headers.set("content-type", "text/html; charset=utf-8");
