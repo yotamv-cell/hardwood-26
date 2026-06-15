@@ -1,4 +1,4 @@
-const CACHE_NAME = "hardwood-26-v7";
+const CACHE_NAME = "hardwood-26-v8";
 const ASSETS = [
   "./",
   "./index.html",
