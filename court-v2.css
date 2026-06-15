@@ -1,0 +1,41 @@
+@media (pointer: coarse) and (orientation: landscape) {
+  .arena-shell {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  #gameCanvas {
+    height: calc(100% - 62px);
+    object-fit: contain;
+    object-position: center top;
+  }
+
+  .touch-controls {
+    bottom: max(4px, env(safe-area-inset-bottom));
+    height: 54px;
+    align-items: center;
+  }
+
+  .touch-stick {
+    width: 54px;
+    height: 54px;
+  }
+
+  #touchKnob {
+    width: 26px;
+    height: 26px;
+    left: 13px;
+    top: 13px;
+  }
+
+  .touch-actions {
+    grid-template-columns: repeat(4, 48px);
+    gap: 5px;
+  }
+
+  .touch-actions button {
+    width: 48px;
+    height: 48px;
+  }
+}
